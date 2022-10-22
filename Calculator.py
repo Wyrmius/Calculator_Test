@@ -17,7 +17,7 @@ def add_operation(operation):
         value = value[:-1]
     if value[0] == '0' and not(len(value) == 1):
         value = value[1:]
-    # elif '+' in value or '-' in value or '*' in value or '/' in value: 
+    # elif '+' in value or '-' in value or '*' in value or '/' in value: # ===> то самое решение чувака сделать тупенький калькулятор.
     #     calculate()
     #     value = calc.get()
     calc.delete(0, tk.END)
@@ -51,7 +51,7 @@ def calculate():
         except ZeroDivisionError:
             window_zero = messagebox.askyesno('Внимание!', 'Совсем тупенький, да?')      
             if window_zero == messagebox.YES or window_zero == messagebox.NO:
-                sus_box()    
+                sus_box()    # не работает, забей хер.
             calc.insert(0, 0)
    
 def clear():
