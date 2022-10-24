@@ -17,7 +17,7 @@ def add_operation(operation):
         value = value[:-1]
     if value[0] == '0' and not(len(value) == 1):
         value = value[1:]
-    # elif '+' in value or '-' in value or '*' in value or '/' in value: # ===> то самое решение чувака сделать тупенький калькулятор.
+    # elif '+' in value or '-' in value or '*' in value or '/' in value: 
     #     calculate()
     #     value = calc.get()
     calc.delete(0, tk.END)
@@ -29,7 +29,9 @@ def sus_box():
 def memo():
     messagebox.showinfo('Справка.',
      'Особенности Калькулятора:\nСимвол "**" - возведение в степень.\nАмогуса не трогай.\nКнопки с библиотеки math пишутся без скобки в конце, пиши пока сам.'
-     '\nКнопка "," выводит запятую с пробелом впереди.')
+     '\nКнопка "," выводит запятую с пробелом впереди.'
+     '\nВ тригонометрических функцях (sin, cos, tan) на место числа нужно вписывать радианы.'
+     '\n')
 
 def calculate():
     value = calc.get()
@@ -51,7 +53,7 @@ def calculate():
         except ZeroDivisionError:
             window_zero = messagebox.askyesno('Внимание!', 'Совсем тупенький, да?')      
             if window_zero == messagebox.YES or window_zero == messagebox.NO:
-                sus_box()    # не работает, забей хер.
+                sus_box()    
             calc.insert(0, 0)
    
 def clear():
@@ -81,6 +83,12 @@ def press_key(event):
     elif event.char == '\r':
         calculate()
 
+# def leftKey(event):
+#      return tk.Button(text= '<', bd = 5, font= {'Arial', 15}, fg = 'gray', command= lambda: '<Left>')
+
+# def rightKey(event):
+#      return tk.Button(text= '>', bd = 5, font= {'Arial', 15}, fg = 'gray', command= lambda: '<Right>')
+
 def make_memo_button():
     return tk.Button(text= 'Справка', bd = 5, font= {'Arial', 15}, fg = 'gray', command= memo)
 
@@ -96,12 +104,45 @@ def make_comma_button(digit):
 def make_sqrt_button(digit):
     return tk.Button(text= '√', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))   
 
+def make_pi_button(digit):
+    return tk.Button(text= '𝞹', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_e_button(digit):
+    return tk.Button(text= 'e', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_sin_button(digit):
+    return tk.Button(text= 'sin(x)', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))    
+
+def make_cos_button(digit):
+    return tk.Button(text= 'cos(x)', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_tan_button(digit):
+    return tk.Button(text= 'tan(x)', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_hypot_button(digit):
+    return tk.Button(text= 'Гипотенуза П/У', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_pow_button(digit):
+    return tk.Button(text= 'X^Y', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
+def make_rad_button(digit):
+    return tk.Button(text= '° => rad', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))  
+
+def make_degree_button(digit):
+    return tk.Button(text= 'rad => °', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))      
+
+def make_dot_button(digit):
+    return tk.Button(text= '.', bd= 5, font= {'Arial', 15}, fg = 'red', command= lambda : add_digit(digit))
+
 # === Работа с окном ===.
 
 win = tk.Tk()
 win.title('Калькулятор!ඞ') # <---- Сюда название
 photo_title = tk.PhotoImage(file= '2116373623456.png') # <---- Сюда иконку
 win.iconphoto(False, photo_title)
+
+# win.bind('<Left>', leftKey)
+# win.bind('<Right>', rightKey)
 
 win['bg'] = 'lightslategrey'
 win.geometry('900x600+500+100') # <---- Здесь менять размер
@@ -113,7 +154,7 @@ win.bind('<Key>', press_key)
 
 calc = tk.Entry(win, justify= tk.RIGHT, font= {'Arial', 20}, width= 20)
 calc.insert(0, '0')
-calc.grid(row= 0, column= 0, columnspan= 4, stick= 'we', padx = 5)
+calc.grid(row= 0, column= 0, columnspan= 8, stick= 'we', padx = 5)
 
 # === Кнопки ===
 
@@ -133,22 +174,35 @@ make_operation_button('+').grid(row= 1, column= 4, stick = 'wens', padx= 5, pady
 make_operation_button('-').grid(row= 2, column= 4, stick = 'wens', padx= 5, pady= 5)
 make_operation_button('/').grid(row= 3, column= 4, stick = 'wens', padx= 5, pady= 5)
 make_operation_button('*').grid(row= 4, column= 4, stick = 'wens', padx= 5, pady= 5)
-make_operation_button('(').grid(row= 6, column= 4, stick = 'wens', padx= 5, pady= 5)
-make_operation_button(')').grid(row= 6, column= 5, stick = 'wens', padx= 5, pady= 5)
-make_operation_button('**').grid(row= 7, column= 5, stick = 'wens', padx= 5, pady= 5)
+make_operation_button('(').grid(row= 9, column= 4, stick = 'wens', padx= 5, pady= 5)
+make_operation_button(')').grid(row= 9, column= 5, stick = 'wens', padx= 5, pady= 5)
+
+#    ___специальные кнопки___
+make_pow_button('math.pow(').grid(row= 5, column= 5, stick = 'wens', padx= 5, pady= 5)
 
 make_factorial_button('math.factorial(').grid(row= 2, column= 5, stick = 'wens', padx= 5, pady= 5)
 make_log_button('math.log(').grid(row= 3, column= 5, stick = 'wens', padx= 5, pady= 5)
 make_comma_button(', ').grid(row= 4, column= 5, stick = 'wens', padx= 5, pady= 5)
 make_sqrt_button('math.sqrt(').grid(row= 1, column= 5, stick = 'wens', padx= 5, pady= 5)
+make_pi_button('math.pi').grid(row= 5, column= 4, stick = 'wens', padx= 5, pady= 5)
+make_e_button('math.e').grid(row= 6, column= 4, stick = 'wens', padx= 5, pady= 5)
+make_sin_button('math.sin(').grid(row= 1, column= 6, stick = 'wens', padx= 5, pady= 5)
+make_cos_button('math.cos(').grid(row= 2, column= 6, stick = 'wens', padx= 5, pady= 5)
+make_tan_button('math.tan(').grid(row= 3, column= 6, stick = 'wens', padx= 5, pady= 5)
+make_rad_button('math.radians(').grid(row= 4, column= 6, stick = 'wens', padx= 5, pady= 5)
+make_degree_button('math.degrees(').grid(row= 5, column= 6, stick = 'wens', padx= 5, pady= 5)
+make_dot_button('.').grid(row= 5, column= 1, stick = 'wens', padx= 5, pady= 5)
+# leftKey('<Left>').grid(row=3, column= 10, stick= 'wens', padx = 5, pady = 5)
+# rightKey('<Right>').grid(row=3, column= 11, stick= 'wens', padx = 5, pady = 5)
 
+#   ___Основа___ 
 make_calc_button('=').grid(row= 4, column= 2, stick = 'wens', padx= 5, pady= 5)
 make_clear_button('C').grid(row= 4, column= 0, stick = 'wens', padx= 5, pady= 5)
-
-make_memo_button().grid(row=0, column= 4, stick= 'wens', padx = 5, pady = 5)
+#   ___Справка___
+make_memo_button().grid(row=0, column= 9, stick= 'wens', padx = 5, pady = 5)
 
 # ඞඞඞඞ amogus button ඞඞඞඞ
-make_amogus_button('ඞ').grid(row= 8, column= 3, stick = 'wens', padx= 15, pady= 5)
+make_amogus_button('ඞ').grid(row= 11, column= 0, stick = 'wens', padx= 15, pady= 5)
 
 # === Расположение кнопок ===
 win.grid_columnconfigure(0, minsize= 75)
